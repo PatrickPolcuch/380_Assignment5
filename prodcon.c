@@ -1,0 +1,94 @@
+
+#include "buffer.h"
+#include <pthread.h>
+
+
+int main(int argc, char *argv[]){
+    if(argc != 4){
+        printf("Incorrect number of arguments.");
+        return -1;
+    }
+    
+    double delay = strtod(argv[1], NULL);
+    int num_producers = strtod(argv[2], NULL);
+    int num_consumers = strtod(argv[3], NULL);
+
+    //make buffer
+
+    if(create_producer_theads(num_producers); < 0){
+        return -1;
+    }
+
+    if(create_consumer_threads(num_consumers); <0){
+        return -1;
+    }
+
+    //sleep
+
+    return 0;
+
+}
+
+int create_producer_theads(int numThreads){
+    while(numThreads > 0){
+        pthread_t producer_id;
+        void *producer_args;
+
+        int producer_result = pthread_create(&producer_id, NULL, *producer, producer_args);
+
+        if(producer_result != 0){
+            printf("Failed to create producer.");
+            return -1;
+        }
+        numThreads--;
+    }
+    return 0;
+}
+
+int create_consumer_threads(int numThreads){
+    while(numThreads > 0){
+        pthread_t consumer_id;
+        void *consumer_args;
+
+        int consumer_result = pthread_create(&consumer_id, NULL, *consumer, consumer_args);
+
+        if(consumer_result != 0){
+            printf("Failed to create consumer.");
+            return -1;
+        }
+        numThreads--;
+    }
+    return 0;
+}
+
+void *producer(){
+    while (1){
+        //
+        //produce an item in next_produced
+        //
+        wait(empty);
+        wait(mutex);
+        //
+        //add next_produced to the buffer
+        //
+        signal(mutex);
+        signal(full);
+    }
+    return NULL;
+}
+
+void *consumer(){
+    while(1){
+        wait(full);
+        wait(mutex);
+        //
+        //remove an item from buffer to next_consumed
+        //
+        signal(mutex);
+        signal(empty);
+        //
+        //consume the item in next_consumed
+        //
+    }
+    return NULL;
+}
