@@ -4,7 +4,7 @@
 #include <pthread.h>
 #include <unistd.h> //for sleep()
 #include <stdio.h> // for printf()
-#include <string.h> //for strtok()
+#include <stdlib.h>// for strtod()
 
 
 int main(int argc, char *argv[]){
@@ -14,8 +14,8 @@ int main(int argc, char *argv[]){
     }
     
     double delay = strtod(argv[1], NULL);
-    int num_producers = strtok(argv[2], NULL);
-    int num_consumers = strtok(argv[3], NULL);
+    int num_producers = strtol(argv[2], NULL, 10);
+    int num_consumers = strtol(argv[3], NULL, 10);
 
     //make buffer
 
