@@ -14,8 +14,8 @@ int main(int argc, char *argv[]){
     }
     
     double delay = strtod(argv[1], NULL);
-    int num_producers = strtod(argv[2], NULL);
-    int num_consumers = strtod(argv[3], NULL);
+    int num_producers = strtok(argv[2], NULL);
+    int num_consumers = strtok(argv[3], NULL);
 
     //make buffer
 
@@ -38,7 +38,7 @@ int create_producer_theads(int numThreads){
         pthread_t producer_id;
         void *producer_args;
 
-        int producer_result = pthread_create(&producer_id, NULL, *producer(), producer_args);
+        int producer_result = pthread_create(&producer_id, NULL, producer(), producer_args);
 
         if(producer_result != 0){
             printf("Failed to create producer.");
@@ -54,7 +54,7 @@ int create_consumer_threads(int numThreads){
         pthread_t consumer_id;
         void *consumer_args;
 
-        int consumer_result = pthread_create(&consumer_id, NULL, *consumer(), consumer_args);
+        int consumer_result = pthread_create(&consumer_id, NULL, consumer(), consumer_args);
 
         if(consumer_result != 0){
             printf("Failed to create consumer.");
