@@ -1,8 +1,10 @@
 
+#include "prodcon.h"
 #include "buffer.h"
 #include <pthread.h>
 #include <unistd.h> //for sleep()
-#include <stdio.h>
+#include <stdio.h> // for printf()
+#include <string.h> //for strtok()
 
 
 int main(int argc, char *argv[]){
