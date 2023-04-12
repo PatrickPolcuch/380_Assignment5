@@ -56,7 +56,7 @@ int remove_item(buffer_item *item){
         return -1;
     }
     item = &buffer[buffer_head];
-    bufferhead = (buffer_head+1)%NUM_ITEMS_IN_BUFFER;
+    buffer_head = (buffer_head+1)%NUM_ITEMS_IN_BUFFER;
     if(buffer_head == (buffer_tail+1)%NUM_ITEMS_IN_BUFFER){//if buffer is empty
         buffer_head = -1;
         buffer_tail = -1;
