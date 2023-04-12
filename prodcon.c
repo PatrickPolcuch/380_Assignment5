@@ -6,6 +6,10 @@
 #include <stdio.h> // for printf()
 #include <stdlib.h>// for strtod()
 
+#define NUM_ITEMS_IN_BUFFER 10
+struct buffer_item buffer[NUM_ITEMS_IN_BUFFER];
+int buffer_head = -1;
+int buffer_tail = -1;
 
 int main(int argc, char *argv[]){
     if(argc != 4){
@@ -17,7 +21,7 @@ int main(int argc, char *argv[]){
     int num_producers = strtol(argv[2], NULL, 10);
     int num_consumers = strtol(argv[3], NULL, 10);
 
-    //make buffer
+    //do buffer stuff
 
     if(create_producer_theads(num_producers) < 0){
         return -1;
@@ -31,6 +35,33 @@ int main(int argc, char *argv[]){
 
     return 0;
 
+}
+
+
+int insert_item(buffer_item item){
+    if((buffer_tail+1)%NUM_ITEMS_IN_BUFFER == buffer_head){
+        //queue is full
+        return -1;
+    }
+    buffer_tail = (buffer_tail+1)%NUM_ITEMS_IN_BUFFER;
+    buffer[buffer_tail] = item;
+    if(buffer_head == -1){
+        buffer_head++;
+    }
+    return 0;
+}
+
+int remove_item(buffer_item *item){
+    if(buffer_head < 0 || buffer_tail < 0){
+        return -1
+    }
+    item = buffer[buffer_head];
+    bufferhead = (buffer_head+1)%NUM_ITEMS_IN_BUFFER;
+    if(buffer_head == (buffer_tail+1)%NUM_ITEMS_IN_BUFFER){//if buffer is empty
+        buffer_head = -1;
+        buffer_tail = -1;
+    }
+    return 0;
 }
 
 int create_producer_theads(int numThreads){
