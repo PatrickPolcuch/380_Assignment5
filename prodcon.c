@@ -7,7 +7,7 @@
 #include <stdlib.h>// for strtod()
 
 #define NUM_ITEMS_IN_BUFFER 10
-struct buffer_item buffer[NUM_ITEMS_IN_BUFFER];
+buffer_item buffer[NUM_ITEMS_IN_BUFFER];
 int buffer_head = -1;
 int buffer_tail = -1;
 
