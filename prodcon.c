@@ -53,9 +53,9 @@ int insert_item(buffer_item item){
 
 int remove_item(buffer_item *item){
     if(buffer_head < 0 || buffer_tail < 0){
-        return -1
+        return -1;
     }
-    item = buffer[buffer_head];
+    item = &buffer[buffer_head];
     bufferhead = (buffer_head+1)%NUM_ITEMS_IN_BUFFER;
     if(buffer_head == (buffer_tail+1)%NUM_ITEMS_IN_BUFFER){//if buffer is empty
         buffer_head = -1;
