@@ -8,5 +8,6 @@ struct buffer_item {
 };
 typedef struct buffer_item buffer_item;
 
+void buffer_init();
 int insert_item(buffer_item item);
 int remove_item(buffer_item *item);
