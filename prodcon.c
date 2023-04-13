@@ -8,8 +8,8 @@
 
 #define NUM_ITEMS_IN_BUFFER 10
 buffer_item buffer[NUM_ITEMS_IN_BUFFER];
-int buffer_head = -1;
-int buffer_tail = -1;
+int buffer_head;
+int buffer_tail;
 
 sem_t empty;
 sem_t full;
@@ -47,6 +47,8 @@ void buffer_init(){
     sem_init(&empty, 0, NUM_ITEMS_IN_BUFFER);
     sem_init(&full, 0, 0);
     pthread_mutex_init(&mutex, NULL);
+    buffer_head = -1;
+    buffer_tail = -1;
 }
 
 
