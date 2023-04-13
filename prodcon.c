@@ -129,7 +129,7 @@ void *producer(){
     while (1){
         //
         //produce an item in next_produced
-        produce_item(next_produced);
+        produce_item(&next_produced);
         //
         sem_wait(&empty);
          pthread_mutex_lock(&mutex);
@@ -152,7 +152,7 @@ void *consumer(){
         pthread_mutex_lock(&mutex);
         
         //remove an item from buffer to next_consumed
-        remove_item(next_consumed);
+        remove_item(&next_consumed);
         
         pthread_mutex_unlock(&mutex);
         sem_post(&empty);
