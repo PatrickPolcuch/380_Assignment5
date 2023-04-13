@@ -69,7 +69,7 @@ int remove_item(buffer_item *item){
         printf("queue was full enexpectedly");
         return -1;
     }
-    item = &buffer[buffer_head];
+    *item = buffer[buffer_head];
     buffer_head = (buffer_head+1)%NUM_ITEMS_IN_BUFFER;
     if(buffer_head == (buffer_tail+1)%NUM_ITEMS_IN_BUFFER){//if buffer is empty
         buffer_head = -1;
@@ -83,7 +83,7 @@ int create_producer_theads(int numThreads){
         pthread_t producer_id;
         void *producer_args;
 
-        int producer_result = pthread_create(&producer_id, NULL, producer(), producer_args);
+        int producer_result = pthread_create(&producer_id, NULL, producer, producer_args);
 
         if(producer_result != 0){
             printf("Failed to create producer.");
@@ -99,7 +99,7 @@ int create_consumer_threads(int numThreads){
         pthread_t consumer_id;
         void *consumer_args;
 
-        int consumer_result = pthread_create(&consumer_id, NULL, consumer(), consumer_args);
+        int consumer_result = pthread_create(&consumer_id, NULL, consumer, consumer_args);
 
         if(consumer_result != 0){
             printf("Failed to create consumer.");
@@ -111,7 +111,11 @@ int create_consumer_threads(int numThreads){
 }
 
 void produce_item(buffer_item *item){
-    item = {90, {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}};
+    item->value = 90;
+    for(int i = 0; i < 31; i++) {
+      item->data[i] = 1;
+    }
+
 }
 
 int consume_item(buffer_item item){
@@ -152,7 +156,7 @@ void *consumer(){
         sem_post(&empty);
         
         //consume the item in next_consumed
-        if(consume_item() == 1){
+        if(consume_item(next_consumed) == 1){
             printf("Correct!\n");
         } else {
             printf("Incorrect :(\n");
