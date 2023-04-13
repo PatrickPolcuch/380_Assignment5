@@ -1,5 +1,5 @@
 /* buffer.h */
-#include <stdint.h>
+//#include <stdint.h>
 
 #define BUFFER_SIZE 30
 struct buffer_item {
